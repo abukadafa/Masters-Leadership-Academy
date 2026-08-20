@@ -20,13 +20,26 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 bg-ink/94 backdrop-blur-md border-b border-rule">
       <nav className="flex items-center justify-between px-8 py-[18px] max-w-[1200px] mx-auto relative">
-        <Link href="/" className="brand flex flex-col text-cream-text">
-          <span className="brand-name font-serif text-[16px] font-semibold tracking-[0.02em] uppercase">
-            Masters Leadership Academy
-          </span>
-          <span className="brand-sub font-mono text-[10px] tracking-[0.1em] text-copper-light uppercase">
-            Seminars · Conferences · Technical Services
-          </span>
+        <Link href="/" className="brand flex items-center gap-3 text-cream-text">
+          <div className="w-8 h-8 relative shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="150 50 200 150" className="w-full h-full">
+              <g transform="translate(0, -10)">
+                <path d="M 180,180 L 180,100 L 200,100 L 200,180 Z" fill="#D4AF37"/>
+                <path d="M 200,100 L 250,150 L 235,165 L 200,130 Z" fill="#D4AF37"/>
+                <path d="M 250,75 L 275,100 L 250,125 L 225,100 Z" fill="#D4AF37"/>
+                <path d="M 300,100 L 250,150 L 265,165 L 300,130 Z" fill="#D4AF37"/>
+                <path d="M 300,180 L 300,100 L 320,100 L 320,180 Z" fill="#D4AF37"/>
+              </g>
+            </svg>
+          </div>
+          <div className="flex flex-col">
+            <span className="brand-name font-serif text-[16px] font-semibold tracking-[0.02em] uppercase leading-tight">
+              Masters Leadership Academy
+            </span>
+            <span className="brand-sub font-mono text-[9px] tracking-[0.08em] text-copper-light uppercase mt-0.5">
+              Seminars · Conferences · Technical Services
+            </span>
+          </div>
         </Link>
 
         {/* Desktop links */}

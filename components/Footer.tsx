@@ -6,11 +6,24 @@ export default function Footer() {
     <footer className="bg-ink text-[#9AACA6] py-[70px] border-t border-rule mt-auto">
       <div className="max-w-[1200px] mx-auto px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-[50px] border-b border-rule">
-          <div className="foot-brand lg:col-span-1">
-            <span className="brand-name font-serif text-cream-text text-[16px] font-semibold tracking-[0.02em] uppercase">
-              Masters Leadership Academy
-            </span>
-            <p className="text-[13px] mt-[16px] max-w-[32ch] leading-[1.6]">
+          <div className="foot-brand lg:col-span-1 flex flex-col gap-4">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 relative shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="150 50 200 150" className="w-full h-full">
+                  <g transform="translate(0, -10)">
+                    <path d="M 180,180 L 180,100 L 200,100 L 200,180 Z" fill="#D4AF37"/>
+                    <path d="M 200,100 L 250,150 L 235,165 L 200,130 Z" fill="#D4AF37"/>
+                    <path d="M 250,75 L 275,100 L 250,125 L 225,100 Z" fill="#D4AF37"/>
+                    <path d="M 300,100 L 250,150 L 265,165 L 300,130 Z" fill="#D4AF37"/>
+                    <path d="M 300,180 L 300,100 L 320,100 L 320,180 Z" fill="#D4AF37"/>
+                  </g>
+                </svg>
+              </div>
+              <span className="brand-name font-serif text-cream-text text-[16px] font-semibold tracking-[0.02em] uppercase leading-tight">
+                Masters Leadership Academy
+              </span>
+            </div>
+            <p className="text-[13px] mt-2 max-w-[32ch] leading-[1.6]">
               A registered Business Name organising seminars, symposiums, conferences and technical services from Port Harcourt, Rivers State, Nigeria.
             </p>
           </div>

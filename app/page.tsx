@@ -46,8 +46,18 @@ export default function Home() {
   return (
     <div>
       {/* HERO SECTION */}
-      <section className="hero bg-gradient-to-b from-ink to-ink-2 color-cream-text relative overflow-hidden pt-[100px] pb-0 text-cream-text">
-        <div className="absolute inset-0 bg-[repeating-linear-gradient(115deg,_rgba(224,164,104,0.05)_0_2px,_transparent_2px_64px),_repeating-linear-gradient(25deg,_rgba(224,164,104,0.04)_0_1px,_transparent_1px_90px)] pointer-events-none" />
+      <section className="hero bg-ink color-cream-text relative overflow-hidden pt-[100px] pb-0 text-cream-text">
+        {/* Background Motion Video (looping, muted YouTube embed) */}
+        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden opacity-30">
+          <iframe
+            src="https://www.youtube.com/embed/WXd_hJhtRyw?autoplay=1&mute=1&loop=1&playlist=WXd_hJhtRyw&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&playsinline=1&start=51"
+            className="w-[100vw] h-[56.25vw] min-h-[100vh] min-w-[177.77vh] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-0"
+            allow="autoplay; encrypted-media"
+          />
+          {/* Layer to blend the video into the theme color */}
+          <div className="absolute inset-0 bg-gradient-to-b from-ink/80 via-ink/90 to-ink-2/95" />
+        </div>
+        <div className="absolute inset-0 bg-[repeating-linear-gradient(115deg,_rgba(224,164,104,0.05)_0_2px,_transparent_2px_64px),_repeating-linear-gradient(25deg,_rgba(224,164,104,0.04)_0_1px,_transparent_1px_90px)] pointer-events-none z-10" />
         <div className="max-w-[1200px] mx-auto px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-16 items-center">
             <div>
@@ -271,21 +281,37 @@ export default function Home() {
               <VideoPlayer />
             </div>
             <div className="flex flex-col gap-6">
-              <div className="bg-paper border border-rule-paper flex-1 flex flex-col items-center justify-center text-center p-6 gap-2.5 min-h-[130px]">
-                <div className="w-[30px] h-[30px] border border-slate rounded-full flex items-center justify-center text-slate text-[13px]">
-                  ▤
+              <div className="relative bg-paper border border-rule-paper flex-1 min-h-[160px] overflow-hidden rounded-[2px] group">
+                <img
+                  src="/seminar_session.jpg"
+                  alt="Academy Seminar Session"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-ink/30 opacity-80 group-hover:opacity-60 transition-opacity" />
+                <div className="absolute bottom-3 left-4 right-4 z-10 flex flex-col">
+                  <span className="font-mono text-[10px] text-copper-light uppercase tracking-wider">
+                    Interactive Workshop
+                  </span>
+                  <span className="font-serif text-[15px] text-cream-text font-medium mt-0.5">
+                    Contemporary Leadership Models
+                  </span>
                 </div>
-                <span className="font-mono text-[11px] text-muted-paper uppercase tracking-[0.05em]">
-                  Photo — add real image
-                </span>
               </div>
-              <div className="bg-paper border border-rule-paper flex-1 flex flex-col items-center justify-center text-center p-6 gap-2.5 min-h-[130px]">
-                <div className="w-[30px] h-[30px] border border-slate rounded-full flex items-center justify-center text-slate text-[13px]">
-                  ▤
+              <div className="relative bg-paper border border-rule-paper flex-1 min-h-[160px] overflow-hidden rounded-[2px] group">
+                <img
+                  src="/conference_hall.jpg"
+                  alt="Academy Leadership Conference"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-ink/30 opacity-80 group-hover:opacity-60 transition-opacity" />
+                <div className="absolute bottom-3 left-4 right-4 z-10 flex flex-col">
+                  <span className="font-mono text-[10px] text-copper-light uppercase tracking-wider">
+                    Annual Symposium
+                  </span>
+                  <span className="font-serif text-[15px] text-cream-text font-medium mt-0.5">
+                    Strategic Planning for Growth
+                  </span>
                 </div>
-                <span className="font-mono text-[11px] text-muted-paper uppercase tracking-[0.05em]">
-                  Photo — add real image
-                </span>
               </div>
             </div>
           </div>
