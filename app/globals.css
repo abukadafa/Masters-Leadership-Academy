@@ -122,3 +122,47 @@ h1, h2, h3, .serif {
   opacity: 1;
   transform: translateY(0);
 }
+
+/*
+ * Mobile-first fixes (see item 46, Mobile Experience).
+ *
+ * iOS Safari auto-zooms the viewport when a focused form field's computed font-size is
+ * under 16px. Every text input/select/textarea on this site was set to 14px for visual
+ * density, which meant every single form on mobile — registration interest, contact,
+ * corporate training, partnerships, careers, certificate verification, admin login —
+ * triggered an unwanted zoom-and-jump on focus. Enforcing 16px only below the `sm`
+ * breakpoint keeps the tighter 14px look on desktop while fixing the mobile bug at the
+ * source instead of touching every form file individually.
+ */
+@media (max-width: 639px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* Minimum comfortable touch target size on touch devices, per WCAG 2.5.5 / mobile HIG. */
+@media (pointer: coarse) {
+  button,
+  a.btn,
+  input[type="submit"],
+  input[type="checkbox"],
+  input[type="radio"] {
+    min-height: 44px;
+  }
+}
+
+/* Respect the iOS/Android safe area (notch, home indicator) for fixed-position UI by
+   offsetting its actual position — NOT padding, which would just shrink a fixed-size
+   element's content box and misalign it, rather than move the element itself. */
+.whatsapp-fab {
+  bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+  right: calc(1rem + env(safe-area-inset-right, 0px));
+}
+@media (min-width: 640px) {
+  .whatsapp-fab {
+    bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
+    right: calc(1.5rem + env(safe-area-inset-right, 0px));
+  }
+}

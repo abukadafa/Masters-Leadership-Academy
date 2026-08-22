@@ -22,10 +22,20 @@ export default function AboutPage() {
             <div>
               <h2 className="text-[24px] font-serif text-ink-text mb-4">Corporate Status</h2>
               <p className="text-muted-paper leading-relaxed mb-4 text-[16px]">
-                Masters Leadership Academy is formally registered as a Business Name under the **Companies and Allied Matters Act 1990, pursuant to Section 659**. The registration was initialised on the **18th day of August, 2015**, and formalised with certificate issuance on the **5th day of July, 2017** by **Bello Mahmud**, the Registrar of Business Names for the Corporate Affairs Commission (CAC).
+                Masters Leadership Academy is formally registered as a Business Name under the{" "}
+                <strong className="text-ink-text font-semibold">Companies and Allied Matters Act 1990, pursuant to Section 659</strong>.
+                The registration was initialised on the{" "}
+                <strong className="text-ink-text font-semibold">18th day of August, 2015</strong>, and formalised with
+                certificate issuance on the{" "}
+                <strong className="text-ink-text font-semibold">5th day of July, 2017</strong> by{" "}
+                <strong className="text-ink-text font-semibold">Bello Mahmud</strong>, the Registrar of Business Names
+                for the Corporate Affairs Commission (CAC).
               </p>
               <p className="text-muted-paper leading-relaxed text-[16px]">
-                Our registered head office and principal place of business is located at **Plot 4Y2K Crescent, off Tony Okocha Road, New Rumuigbo, Port Harcourt, Rivers State, Nigeria**.
+                Our registered head office and principal place of business is located at{" "}
+                <strong className="text-ink-text font-semibold">
+                  Plot 4Y2K Crescent, off Tony Okocha Road, New Rumuigbo, Port Harcourt, Rivers State, Nigeria
+                </strong>.
               </p>
             </div>
 

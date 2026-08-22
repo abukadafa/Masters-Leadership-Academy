@@ -5,12 +5,32 @@ import CMSPlaceholder from "@/components/CMSPlaceholder";
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    setForm({ name: "", email: "", subject: "", message: "" });
+    setLoading(true);
+    setError("");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.error || "Something went wrong. Please try again.");
+        return;
+      }
+      setSubmitted(true);
+      setForm({ name: "", email: "", subject: "", message: "" });
+    } catch {
+      setError("Something went wrong. Please check your connection and try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -71,9 +91,12 @@ export default function ContactPage() {
                   className="w-full p-3 border border-rule-paper bg-paper text-[14px] text-ink-text focus:outline-none focus:border-copper resize-none"
                 />
               </div>
-              <button type="submit" className="btn btn-copper w-full justify-center cursor-pointer">
-                Submit Enquiry
+              <button type="submit" disabled={loading} className="btn btn-copper w-full justify-center cursor-pointer disabled:opacity-60">
+                {loading ? "Sending..." : "Submit Enquiry"}
               </button>
+              {error && (
+                <div className="text-[13px] text-[#B23A3A] mt-1 text-center">{error}</div>
+              )}
               {submitted && (
                 <div className="text-[13px] font-semibold text-ink-text mt-2 p-3 bg-copper/10 border border-copper/30 text-center">
                   Thank you! Your message has been sent successfully. We will respond shortly.

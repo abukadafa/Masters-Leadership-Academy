@@ -93,27 +93,25 @@ export default function VideoPlayer({
             controls
             className="absolute inset-0 w-full h-full object-cover"
           />
+        ) : !src ? (
+          /* Genuinely empty state — no footage supplied yet */
+          <div className="flex flex-col items-center justify-center text-center px-6 py-10 z-10">
+            <span className="font-mono text-[11px] text-copper-light uppercase tracking-[0.1em] mb-3">
+              [CMS Placeholder]
+            </span>
+            <p className="text-[#9AACA6] text-[13px] max-w-[36ch]">
+              No Academy video has been uploaded yet. Paste a YouTube link or hosted MP4 URL below to preview one here.
+            </p>
+          </div>
         ) : (
-          /* Placeholder / Poster State */
-          <>
-            <div className="absolute inset-0 bg-[#0A1819]/45 backdrop-blur-[1px] z-0" />
-            
-            {isYouTube && (
-              <div className="absolute inset-0 flex flex-col justify-between p-6 z-10 pointer-events-none">
-                <span className="font-mono text-[10px] text-copper-light uppercase tracking-wider bg-ink/75 px-2.5 py-1.5 self-start rounded-[2px] border border-rule">
-                  Academy Feature Video
-                </span>
-              </div>
-            )}
-
-            <button
-              onClick={handlePlayClick}
-              aria-label="Play video"
-              className="w-16 h-16 rounded-full border border-copper-light flex items-center justify-center text-copper-light text-xl bg-ink/80 hover:bg-copper hover:text-ink transition-all cursor-pointer z-10 focus:outline-none focus:ring-2 focus:ring-copper-light focus:ring-offset-2"
-            >
-              ▶
-            </button>
-          </>
+          /* Poster State — a real source is set but not yet playing */
+          <button
+            onClick={handlePlayClick}
+            aria-label="Play video"
+            className="w-16 h-16 rounded-full border border-copper-light flex items-center justify-center text-copper-light text-xl bg-ink/80 hover:bg-copper hover:text-ink transition-all cursor-pointer z-10 focus:outline-none focus:ring-2 focus:ring-copper-light focus:ring-offset-2"
+          >
+            ▶
+          </button>
         )}
 
         <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-ink/90 to-transparent text-[#B9C6C2] font-mono text-[11px] uppercase tracking-[0.06em] z-10 flex justify-between items-center pointer-events-none">

@@ -3,18 +3,21 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
+import type { Dictionary } from "@/lib/i18n/dictionaries/types";
+import type { Locale } from "@/lib/i18n/config";
 
-export default function Header() {
+export default function Header({ dict, locale }: { dict: Dictionary; locale: Locale }) {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
 
   const navLinks = [
-    { href: "/about", label: "About" },
-    { href: "/services", label: "Services" },
-    { href: "/programmes", label: "Programmes" },
-    { href: "/events", label: "Events" },
-    { href: "/media", label: "Media" },
-    { href: "/contact", label: "Contact" },
+    { href: "/about", label: dict.nav.about },
+    { href: "/services", label: dict.nav.services },
+    { href: "/programmes", label: dict.nav.programmes },
+    { href: "/events", label: dict.nav.events },
+    { href: "/media", label: dict.nav.media },
+    { href: "/contact", label: dict.nav.contact },
   ];
 
   return (
@@ -60,9 +63,12 @@ export default function Header() {
           })}
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
+          <div className="hidden lg:block">
+            <LanguageSwitcher current={locale} label={dict.language.switchLanguage} />
+          </div>
           <Link href="/contact" className="hidden sm:inline-flex btn btn-outline-dark">
-            Enquire Now
+            {dict.nav.enquireNow}
           </Link>
           <button
             onClick={() => setIsOpen(!isOpen)}
@@ -91,12 +97,15 @@ export default function Header() {
                 </Link>
               );
             })}
+            <div className="pt-2 border-t border-rule/50">
+              <LanguageSwitcher current={locale} label={dict.language.switchLanguage} />
+            </div>
             <Link
               href="/contact"
               onClick={() => setIsOpen(false)}
               className="btn btn-outline-dark text-center w-full justify-center mt-2"
             >
-              Enquire Now
+              {dict.nav.enquireNow}
             </Link>
           </div>
         )}
