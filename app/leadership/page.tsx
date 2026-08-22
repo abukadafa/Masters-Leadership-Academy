@@ -31,7 +31,7 @@ export default function LeadershipPage() {
             <div className="w-[180px] h-[180px] md:w-[220px] md:h-[220px] rounded-[4px] overflow-hidden border border-rule-paper bg-paper shrink-0 relative">
               <Image
                 src="/chairman.jpg"
-                alt="Dr. John Doe, Chairman & Founder, Masters Leadership Academy"
+                alt="Dr. Orovwiroro Orakpowenri Godwin, Chairman & Founder, Masters Leadership Academy"
                 fill
                 sizes="220px"
                 className="object-cover"
@@ -39,9 +39,9 @@ export default function LeadershipPage() {
             </div>
             <div>
               <div className="text-[11px] text-slate tracking-[0.1em] uppercase mb-2">Chairman &amp; Founder</div>
-              <div className="font-serif text-[24px] text-ink-text font-semibold mb-3">Dr. John Doe</div>
+              <div className="font-serif text-[24px] text-ink-text font-semibold mb-3">Dr. Orovwiroro Orakpowenri Godwin</div>
               <p className="text-[14px] text-muted-paper leading-relaxed max-w-[64ch]">
-                Dr. John Doe founded Masters Leadership Academy in 2015 with a mandate to develop leaders
+                Dr. Orovwiroro Orakpowenri Godwin founded Masters Leadership Academy in 2015 with a mandate to develop leaders
                 across the public and private sectors through practical, rigorous seminars, conferences and
                 technical services. [CMS Placeholder — add full biography, credentials and track record.]
               </p>

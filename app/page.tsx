@@ -171,7 +171,7 @@ export default function Home() {
             <div className="w-[200px] h-[200px] md:w-[240px] md:h-[240px] rounded-[4px] overflow-hidden border border-rule-paper bg-paper-2 shrink-0 relative">
               <Image
                 src="/chairman.jpg"
-                alt="Dr. John Doe, Chairman & Founder, Masters Leadership Academy"
+                alt="Dr. Orovwiroro Orakpowenri Godwin, Chairman & Founder, Masters Leadership Academy"
                 fill
                 sizes="240px"
                 className="object-cover"
@@ -184,7 +184,7 @@ export default function Home() {
                 clearly, and serve their organisations and communities with integrity. Every seminar,
                 conference and technical engagement we run is built toward that end.&rdquo;
               </p>
-              <div className="font-serif text-[17px] text-ink-text font-semibold">Dr. John Doe</div>
+              <div className="font-serif text-[17px] text-ink-text font-semibold">Dr. Orovwiroro Orakpowenri Godwin</div>
               <div className="text-[13px] text-muted-paper uppercase tracking-[0.08em] mt-1">
                 Chairman &amp; Founder, Masters Leadership Academy
               </div>
