@@ -8,7 +8,20 @@ import EmptyState from "@/components/EmptyState";
  * No real programme names exist yet (see README — the registration certificate does not
  * supply curriculum data). Once the CMS/catalogue is wired up, this route will render real
  * programme content fetched by slug instead of this EmptyState.
+ *
+ * noindex: every slug currently resolves to this "not yet published" state (no catalogue
+ * exists to validate against), so none of these URLs should be indexed as if they were real
+ * programme pages — avoids a soft-404 SEO problem until real programmes exist.
  */
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const readableSlug = slug.replace(/-/g, " ");
+  return {
+    title: `Programme: ${readableSlug}`,
+    robots: { index: false, follow: true },
+  };
+}
+
 export default async function ProgrammeDetailPage({
   params,
 }: {

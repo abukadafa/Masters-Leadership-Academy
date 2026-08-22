@@ -2,6 +2,12 @@ import React from "react";
 import PageHero from "@/components/PageHero";
 import CMSPlaceholder from "@/components/CMSPlaceholder";
 
+export const metadata = {
+  title: "Privacy Policy",
+  description: "How Masters Leadership Academy collects, uses, and protects personal data.",
+  robots: { index: false, follow: true },
+};
+
 export default function PrivacyPage() {
   return (
     <div className="bg-paper py-16">
@@ -55,7 +61,7 @@ export default function PrivacyPage() {
             <h2 className="text-[20px] font-serif text-ink-text mb-3">7. Contact</h2>
             <CMSPlaceholder text="Provide a dedicated data protection / privacy contact email." />
           </section>
-          <p className="text-[12px] text-muted-paper/70 font-mono">Last updated: not yet published.</p>
+          <p className="text-[12px] text-muted-paper font-mono">Last updated: not yet published.</p>
         </div>
       </div>
     </div>

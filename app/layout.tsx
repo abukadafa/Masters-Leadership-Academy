@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Fraunces, IBM_Plex_Mono } from "next/font/google";
 import { cookies } from "next/headers";
 import "./globals.css";
@@ -6,8 +6,10 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
+import OrganizationJsonLd from "@/components/OrganizationJsonLd";
 import { LOCALE_COOKIE, DEFAULT_LOCALE, getLocaleInfo, type Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/getDictionary";
+import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/site";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -31,16 +33,47 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Masters Leadership Academy — Leadership Training, Conferences & Technical Services",
-  description: "Masters Leadership Academy — organising seminars, symposiums, conferences and technical services. CAC Registered Business Name BN 2357164, Port Harcourt, Rivers State, Nigeria.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: `${SITE_NAME} — Leadership Training, Conferences & Technical Services`,
+    template: `%s — ${SITE_NAME}`,
+  },
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
   manifest: "/manifest.json",
+  alternates: {
+    canonical: "/",
+  },
   icons: {
-    icon: "/icons/favicon-32.png",
-    apple: "/icons/apple-touch-icon.png",
+    icon: [
+      { url: "/icons/favicon-32.png", sizes: "32x32", type: "image/png" },
+      { url: "/icons/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icons/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [{ url: "/icons/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+  },
+  openGraph: {
+    type: "website",
+    siteName: SITE_NAME,
+    title: `${SITE_NAME} — Leadership Training, Conferences & Technical Services`,
+    description: SITE_DESCRIPTION,
+    url: "/",
+    locale: "en_NG",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE_NAME} — Leadership Training, Conferences & Technical Services`,
+    description: SITE_DESCRIPTION,
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
-export const viewport = {
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
   themeColor: "#0B192C",
 };
 
@@ -61,8 +94,17 @@ export default async function RootLayout({
       className={`${inter.variable} ${fraunces.variable} ${ibmPlexMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-paper text-ink-text font-sans">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:bg-copper focus:text-[#1B0F05] focus:px-4 focus:py-2 focus:rounded-[2px] focus:text-sm focus:font-semibold"
+        >
+          Skip to main content
+        </a>
+        <OrganizationJsonLd />
         <Header dict={dict} locale={locale} />
-        <main className="flex-grow">{children}</main>
+        <main id="main-content" className="flex-grow">
+          {children}
+        </main>
         <Footer dict={dict} locale={locale} />
         <WhatsAppButton />
         <ServiceWorkerRegister />
@@ -70,3 +112,4 @@ export default async function RootLayout({
     </html>
   );
 }
+

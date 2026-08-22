@@ -3,6 +3,11 @@ import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import CmsGridSlot from "@/components/CmsGridSlot";
 
+export const metadata = {
+  title: "Testimonials & Case Studies",
+  description: "What participants and partners say about Masters Leadership Academy.",
+};
+
 export default function TestimonialsPage() {
   return (
     <div className="bg-paper py-16">

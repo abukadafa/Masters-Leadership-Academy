@@ -9,6 +9,11 @@ const categories = [
   { title: "Registration Certificate", desc: "CAC registration record, available on request." },
 ];
 
+export const metadata = {
+  title: "Resources Centre",
+  description: "Downloadable guides, templates, and materials from Masters Leadership Academy.",
+};
+
 export default function ResourcesPage() {
   return (
     <div className="bg-paper py-16">

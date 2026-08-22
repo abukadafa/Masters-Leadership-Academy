@@ -164,3 +164,86 @@ No test suite exists to run (`npm test` is not defined). See §7.
   `lib/models.ts` is intentionally small and easy to port (already documented in `lib/db.ts`).
 - Generate a real `SESSION_SECRET` and set it in production — the app throws on startup in
   production if it's missing, which is correct behavior, not a bug.
+
+## 8. Production-readiness pass (2026-08-22, second pass)
+
+Full-site sweep for SEO, accessibility, error handling, and brand consistency ahead of
+launch. All changes verified with `tsc --noEmit` (0 errors) and `npm run lint` (0 errors,
+0 warnings) after each step; `npm run build` still can't be verified in this sandbox (no
+network access to fonts.googleapis.com for `next/font/google` — same documented limitation
+as §6). Run it once in an environment with normal internet access before shipping.
+
+### Accessibility — contrast fix
+`--muted-paper` (`#78735F`, used for secondary/meta text across ~15 pages at 12–18px) only
+hit a 4.15:1 contrast ratio against `--paper`, below the WCAG AA 4.5:1 threshold for normal
+text. Darkened to `#6C6856` (4.88:1) — close enough to the original that the visual identity
+is unchanged. Also removed an `opacity-70` modifier on 4 legal pages' "Last updated" lines
+that compounded the problem further.
+
+### SEO — metadata was effectively missing site-wide
+Only the root layout had a `<title>`/description; all 29 routes shared the same one, no
+`metadataBase`, no Open Graph/Twitter tags, no canonical URLs, no structured data, no
+`robots.txt`/`sitemap.xml`, and admin/legal-placeholder pages were indexable.
+**Fixed:**
+- `lib/site.ts` — single source of truth for site URL, name, description, and verified org
+  facts, so metadata and JSON-LD can't drift out of sync with each other.
+- Root layout: `metadataBase`, title template (`%s — Masters Leadership Academy`), full
+  Open Graph + Twitter Card defaults, expanded favicon set, explicit viewport
+  width/initialScale (was silently dropped once a custom `viewport` export was added —
+  Next.js doesn't backfill defaults once you override the export).
+- Unique `title`/`description` added to all 14 server-rendered pages directly; 7
+  client-component pages (careers, contact, corporate-training, faq, partnerships,
+  register, verify-certificate) got a sibling `layout.tsx` instead, since `metadata` can't
+  be exported from a `"use client"` file.
+- `/admin/login` and the admin dashboard layout: `robots: noindex`.
+- The 4 legal pages (privacy, terms, cookies, refund-policy) currently render "not yet
+  published" placeholder text — set `robots: noindex` on all 4 rather than let thin content
+  get indexed, until real policy text replaces the placeholders.
+- `/programmes/[slug]`: every slug currently resolves to a "not yet published" state (no
+  programme catalogue exists yet), which is a classic soft-404 pattern. Added
+  `generateMetadata` with `robots: noindex` per-slug rather than changing the route's
+  response behavior, to avoid the SEO risk without touching working UX.
+- `app/robots.ts` and `app/sitemap.ts` — dynamic, list only the 18 genuinely indexable
+  routes (excludes `/admin/*`, the 4 noindexed legal pages, and `/programmes/[slug]`).
+- `components/OrganizationJsonLd.tsx` — `Organization` JSON-LD in the root layout, built
+  only from the verified facts in `lib/site.ts` (name, BN/CRBN numbers, address) — no
+  fabricated phone/email/social profiles.
+- `app/opengraph-image.tsx` — a generated (not stock-photo) 1200×630 OG/Twitter card using
+  the site's own type and color tokens; Next.js serves it for both Open Graph and Twitter
+  automatically since no separate `twitter-image.tsx` exists.
+
+### Error handling — none existed
+No custom 404, no error boundary, no root-level error boundary — all three would have
+fallen back to Next.js's unstyled defaults.
+**Fixed:** `app/not-found.tsx` (themed, uses `PageHero` + real navigation links),
+`app/error.tsx` (client error boundary with a "Try Again" button calling `reset()`),
+`app/global-error.tsx` (covers errors thrown in the root layout itself, which
+`error.tsx` cannot catch — must render its own `<html>/<body>` per Next.js's contract, so
+it uses inline styles rather than Tailwind classes since it may render when the rest of the
+app has failed to).
+
+### Brand consistency — two files still used the old reference-file palette
+`public/offline.html` (PWA offline fallback) and `public/manifest.json`
+(`background_color`/`theme_color`) were never updated when the design tokens changed from
+the original reference HTML (`#12292B` ink / `#C1783A` copper / `#F4EFE6` paper) to the
+site's actual current tokens (`#0B192C` / `#D4AF37` / `#F5EFE2` in `app/globals.css`). Fixed
+both to match. Also added `id`, `lang`, and `categories` to `manifest.json` — minor but
+standard PWA-manifest fields that were missing.
+
+### Config — minor production hardening
+`next.config.ts`: added `poweredByHeader: false` (don't advertise the framework/version via
+response headers) and explicit `reactStrictMode: true`.
+
+### Still not done, and why
+- **`npm run build` unverified** — sandbox network limitation, not a code issue (see above).
+  Highest-priority item to run once in a real environment before deploying.
+- **Real OG/social preview testing** — the generated `opengraph-image.tsx` hasn't been
+  checked against actual Facebook/X/LinkedIn preview scrapers; do a quick check with each
+  platform's debugger tool after deploying.
+- **Self-hosting fonts** (`next/font/local` instead of `next/font/google`) would remove the
+  build-time dependency on reaching fonts.googleapis.com entirely — worth considering if the
+  eventual CI/deploy environment has restricted network access, but not done here since the
+  current approach works fine on any host with normal internet access (e.g. Vercel).
+- Everything listed in §5 and §7 above is still open — this pass didn't touch the admin
+  workflow, CSRF, push-sending, or test-runner gaps.
+

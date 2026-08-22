@@ -74,6 +74,11 @@ function GalleryTab() {
   );
 }
 
+export const metadata = {
+  title: "Media",
+  description: "Photos, video, and press coverage from Masters Leadership Academy events and programmes.",
+};
+
 export default function MediaPage() {
   return (
     <div className="bg-paper py-16">

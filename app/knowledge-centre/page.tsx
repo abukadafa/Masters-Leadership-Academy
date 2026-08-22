@@ -13,6 +13,11 @@ function Grid({ label }: { label: string }) {
   );
 }
 
+export const metadata = {
+  title: "Knowledge Centre",
+  description: "Articles, insights, and guidance on leadership from Masters Leadership Academy.",
+};
+
 export default function KnowledgeCentrePage() {
   return (
     <div className="bg-paper py-16">

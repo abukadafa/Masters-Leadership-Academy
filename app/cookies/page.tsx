@@ -2,6 +2,12 @@ import React from "react";
 import PageHero from "@/components/PageHero";
 import CMSPlaceholder from "@/components/CMSPlaceholder";
 
+export const metadata = {
+  title: "Cookie Policy",
+  description: "How Masters Leadership Academy uses cookies on this website.",
+  robots: { index: false, follow: true },
+};
+
 export default function CookiesPage() {
   return (
     <div className="bg-paper py-16">
@@ -30,7 +36,7 @@ export default function CookiesPage() {
               functionality of registration and enquiry forms on this site.
             </p>
           </section>
-          <p className="text-[12px] text-muted-paper/70 font-mono">Last updated: not yet published.</p>
+          <p className="text-[12px] text-muted-paper font-mono">Last updated: not yet published.</p>
         </div>
       </div>
     </div>

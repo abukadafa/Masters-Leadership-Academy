@@ -1,6 +1,12 @@
 import React from "react";
 import CMSPlaceholder from "@/components/CMSPlaceholder";
 
+export const metadata = {
+  title: "Services",
+  description:
+    "Seminars & symposiums, conferences, and technical services from Masters Leadership Academy, Port Harcourt, Nigeria.",
+};
+
 export default function ServicesPage() {
   const serviceLines = [
     {

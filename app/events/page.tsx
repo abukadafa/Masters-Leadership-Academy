@@ -4,6 +4,11 @@ import EmptyState from "@/components/EmptyState";
 import TimezoneSwitcher from "@/components/TimezoneSwitcher";
 import { formatEventDateTime, TIMEZONE_COOKIE } from "@/lib/locale";
 
+export const metadata = {
+  title: "Events",
+  description: "Upcoming seminars, symposiums, and conferences from Masters Leadership Academy.",
+};
+
 export default async function EventsPage() {
   const store = await cookies();
   const timezone = store.get(TIMEZONE_COOKIE)?.value || "Africa/Lagos";

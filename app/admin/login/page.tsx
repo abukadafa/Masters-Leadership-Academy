@@ -1,6 +1,11 @@
 import React, { Suspense } from "react";
 import LoginForm from "@/components/admin/LoginForm";
 
+export const metadata = {
+  title: "Admin Login",
+  robots: { index: false, follow: false },
+};
+
 export default function AdminLoginPage() {
   return (
     <div className="min-h-[70vh] flex items-center justify-center bg-ink px-6 py-16">

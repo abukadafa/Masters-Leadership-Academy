@@ -2,6 +2,12 @@ import React from "react";
 import CMSPlaceholder from "@/components/CMSPlaceholder";
 import LedgerCard from "@/components/LedgerCard";
 
+export const metadata = {
+  title: "About Us",
+  description:
+    "About Masters Leadership Academy, a registered business organising seminars, symposiums, conferences and technical services from Port Harcourt, Rivers State, Nigeria.",
+};
+
 export default function AboutPage() {
   return (
     <div className="bg-paper py-16">

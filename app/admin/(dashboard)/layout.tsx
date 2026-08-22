@@ -5,6 +5,10 @@ import { getCurrentUser } from "@/lib/session";
 import { ADMIN_ROLES } from "@/lib/permissions";
 import LogoutButton from "@/components/admin/LogoutButton";
 
+export const metadata = {
+  robots: { index: false, follow: false },
+};
+
 const navItems = [
   { href: "/admin", label: "Dashboard" },
   { href: "/admin/enquiries", label: "Enquiries" },

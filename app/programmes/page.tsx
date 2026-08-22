@@ -21,6 +21,11 @@ const categories = [
   },
 ];
 
+export const metadata = {
+  title: "Programmes",
+  description: "Leadership training programmes offered by Masters Leadership Academy.",
+};
+
 export default async function ProgrammesPage() {
   const store = await cookies();
   const currency = (store.get(CURRENCY_COOKIE)?.value as CurrencyCode) || "NGN";

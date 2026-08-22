@@ -1,6 +1,11 @@
 import React from "react";
 import Link from "next/link";
 
+export const metadata = {
+  title: "Clients & Partners",
+  description: "The organisations Masters Leadership Academy has worked with and partnered alongside.",
+};
+
 export default function ClientsPage() {
   return (
     <div className="bg-paper py-16">

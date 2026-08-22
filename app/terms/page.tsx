@@ -2,6 +2,12 @@ import React from "react";
 import PageHero from "@/components/PageHero";
 import CMSPlaceholder from "@/components/CMSPlaceholder";
 
+export const metadata = {
+  title: "Terms of Use",
+  description: "Terms of use for the Masters Leadership Academy website and services.",
+  robots: { index: false, follow: true },
+};
+
 export default function TermsPage() {
   return (
     <div className="bg-paper py-16">
@@ -47,7 +53,7 @@ export default function TermsPage() {
             <h2 className="text-[20px] font-serif text-ink-text mb-3">6. Governing Law</h2>
             <p>These terms are governed by the laws of the Federal Republic of Nigeria.</p>
           </section>
-          <p className="text-[12px] text-muted-paper/70 font-mono">Last updated: not yet published.</p>
+          <p className="text-[12px] text-muted-paper font-mono">Last updated: not yet published.</p>
         </div>
       </div>
     </div>

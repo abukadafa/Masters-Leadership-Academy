@@ -10,6 +10,11 @@ const roles = [
   "Facilitator",
 ];
 
+export const metadata = {
+  title: "Leadership & Faculty",
+  description: "Meet the leadership and facilitators of Masters Leadership Academy.",
+};
+
 export default function LeadershipPage() {
   return (
     <div className="bg-paper py-16">

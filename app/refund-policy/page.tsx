@@ -2,6 +2,12 @@ import React from "react";
 import PageHero from "@/components/PageHero";
 import CMSPlaceholder from "@/components/CMSPlaceholder";
 
+export const metadata = {
+  title: "Refund & Cancellation Policy",
+  description: "Masters Leadership Academy's refund and cancellation policy for registrations and enrolments.",
+  robots: { index: false, follow: true },
+};
+
 export default function RefundPolicyPage() {
   return (
     <div className="bg-paper py-16">
@@ -31,7 +37,7 @@ export default function RefundPolicyPage() {
             <h2 className="text-[20px] font-serif text-ink-text mb-3">3. Refund Processing Time</h2>
             <CMSPlaceholder text="State how many business days a refund takes once approved, and the method (original payment channel, bank transfer, etc.)." />
           </section>
-          <p className="text-[12px] text-muted-paper/70 font-mono">Last updated: not yet published.</p>
+          <p className="text-[12px] text-muted-paper font-mono">Last updated: not yet published.</p>
         </div>
       </div>
     </div>
