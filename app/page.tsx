@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import LedgerCard from "@/components/LedgerCard";
 import VideoPlayer from "@/components/VideoPlayer";
 import EmptyState from "@/components/EmptyState";
 import CMSPlaceholder from "@/components/CMSPlaceholder";
@@ -60,10 +59,10 @@ export default function Home() {
         </div>
         <div className="absolute inset-0 bg-[repeating-linear-gradient(115deg,_rgba(224,164,104,0.05)_0_2px,_transparent_2px_64px),_repeating-linear-gradient(25deg,_rgba(224,164,104,0.04)_0_1px,_transparent_1px_90px)] pointer-events-none z-10" />
         <div className="max-w-[1200px] mx-auto px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-16 items-center">
-            <div>
+          <div className="grid grid-cols-1 items-center">
+            <div className="max-w-[46ch]">
               <span className="eyebrow text-copper-light">
-                CAC Registered Business Name · BN 2357164 · Est. 2015
+                CAC Registered Business Name · Est. 2015
               </span>
               <h1 className="text-[38px] md:text-[52px] lg:text-[60px] font-serif leading-[1.06] mt-[22px] mb-[26px] max-w-[15ch]">
                 Developing leaders through seminars, conferences and technical training
@@ -84,9 +83,6 @@ export default function Home() {
                   </Link>
                 </div>
               </div>
-            </div>
-            <div>
-              <LedgerCard />
             </div>
           </div>
         </div>
