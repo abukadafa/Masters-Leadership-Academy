@@ -2,12 +2,14 @@
 
 import React, { useState } from "react";
 import CMSPlaceholder from "@/components/CMSPlaceholder";
+import Honeypot from "@/components/Honeypot";
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
+  const [website, setWebsite] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,7 +19,7 @@ export default function ContactPage() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, website }),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -51,6 +53,7 @@ export default function ContactPage() {
           <div className="bg-paper-2 border border-rule-paper/60 p-8 rounded-[3px]">
             <h2 className="text-[22px] font-serif text-ink-text mb-6">Send a Message</h2>
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+              <Honeypot value={website} onChange={setWebsite} />
               <div>
                 <label className="block text-xs font-mono uppercase text-slate mb-2">Full Name</label>
                 <input

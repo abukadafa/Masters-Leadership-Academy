@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import PageHero from "@/components/PageHero";
+import Honeypot from "@/components/Honeypot";
 
 export default function CorporateTrainingPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -17,6 +18,7 @@ export default function CorporateTrainingPage() {
     timeline: "",
     details: "",
   });
+  const [website, setWebsite] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,7 +28,7 @@ export default function CorporateTrainingPage() {
       const res = await fetch("/api/corporate-training", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, website }),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -64,6 +66,7 @@ export default function CorporateTrainingPage() {
           <div className="bg-paper-2 border border-rule-paper/60 p-8 rounded-[3px]">
             <h2 className="text-[22px] font-serif text-ink-text mb-6">Request a Proposal</h2>
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+              <Honeypot value={website} onChange={setWebsite} />
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-mono uppercase text-slate mb-2">Company Name</label>

@@ -6,6 +6,7 @@ import LedgerCard from "@/components/LedgerCard";
 import VideoPlayer from "@/components/VideoPlayer";
 import EmptyState from "@/components/EmptyState";
 import CMSPlaceholder from "@/components/CMSPlaceholder";
+import CmsGridSlot from "@/components/CmsGridSlot";
 
 export default function Home() {
   const [activeTags, setActiveTags] = useState<string[]>([]);
@@ -281,38 +282,8 @@ export default function Home() {
               <VideoPlayer />
             </div>
             <div className="flex flex-col gap-6">
-              <div className="relative bg-paper border border-rule-paper flex-1 min-h-[160px] overflow-hidden rounded-[2px] group">
-                <img
-                  src="/seminar_session.jpg"
-                  alt="Academy Seminar Session"
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-ink/30 opacity-80 group-hover:opacity-60 transition-opacity" />
-                <div className="absolute bottom-3 left-4 right-4 z-10 flex flex-col">
-                  <span className="font-mono text-[10px] text-copper-light uppercase tracking-wider">
-                    Interactive Workshop
-                  </span>
-                  <span className="font-serif text-[15px] text-cream-text font-medium mt-0.5">
-                    Contemporary Leadership Models
-                  </span>
-                </div>
-              </div>
-              <div className="relative bg-paper border border-rule-paper flex-1 min-h-[160px] overflow-hidden rounded-[2px] group">
-                <img
-                  src="/conference_hall.jpg"
-                  alt="Academy Leadership Conference"
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-ink/30 opacity-80 group-hover:opacity-60 transition-opacity" />
-                <div className="absolute bottom-3 left-4 right-4 z-10 flex flex-col">
-                  <span className="font-mono text-[10px] text-copper-light uppercase tracking-wider">
-                    Annual Symposium
-                  </span>
-                  <span className="font-serif text-[15px] text-cream-text font-medium mt-0.5">
-                    Strategic Planning for Growth
-                  </span>
-                </div>
-              </div>
+              <CmsGridSlot label="No seminar session photo has been supplied yet." className="flex-1 min-h-[160px]" />
+              <CmsGridSlot label="No conference photo has been supplied yet." className="flex-1 min-h-[160px]" />
             </div>
           </div>
         </div>

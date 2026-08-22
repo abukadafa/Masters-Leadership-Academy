@@ -38,7 +38,7 @@ function makeTable<T>(table: string) {
       const cols = Object.keys(row);
       const placeholders = cols.map((c) => `@${c}`).join(", ");
       const stmt = db.prepare(`INSERT INTO ${table} (${cols.join(", ")}) VALUES (${placeholders})`);
-      const info = stmt.run(row as any);
+      const info = stmt.run(row as Record<string, string | number | null>);
       return Number(info.lastInsertRowid);
     },
     list(): T[] {

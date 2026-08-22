@@ -56,51 +56,15 @@ function GalleryTab() {
   return (
     <div>
       <p className="text-muted-paper text-[14px] mb-6 max-w-[64ch] leading-relaxed">
-        Seminar and conference photography from our latest sessions. Real images from Academy sessions will populate this gallery.
+        Seminar and conference photography from Academy sessions will appear here once supplied. No stock
+        or placeholder photography is presented as genuine Academy imagery.
       </p>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-        {/* Real image 1 */}
-        <div className="relative bg-paper-2 border border-rule-paper flex flex-col min-h-[220px] rounded-[2px] overflow-hidden group">
-          <img
-            src="/seminar_session.jpg"
-            alt="Academy Seminar Session"
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-          />
-          <div className="absolute inset-0 bg-ink/35 opacity-90 group-hover:opacity-75 transition-opacity" />
-          <div className="absolute bottom-4 left-5 right-5 z-10 text-left">
-            <span className="font-mono text-[10px] text-copper-light uppercase tracking-wider block mb-1">
-              Seminar Session
-            </span>
-            <h3 className="font-serif text-[17px] text-cream-text font-medium leading-tight">
-              Contemporary Leadership Models & Executive Presence
-            </h3>
-            <p className="text-xs text-[#AEC0BB] mt-1">Interactive workshop session covering strategic thinking and strength-based leadership.</p>
-          </div>
-        </div>
-
-        {/* Real image 2 */}
-        <div className="relative bg-paper-2 border border-rule-paper flex flex-col min-h-[220px] rounded-[2px] overflow-hidden group">
-          <img
-            src="/conference_hall.jpg"
-            alt="Academy Leadership Conference"
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-          />
-          <div className="absolute inset-0 bg-ink/35 opacity-90 group-hover:opacity-75 transition-opacity" />
-          <div className="absolute bottom-4 left-5 right-5 z-10 text-left">
-            <span className="font-mono text-[10px] text-copper-light uppercase tracking-wider block mb-1">
-              Leadership Conference
-            </span>
-            <h3 className="font-serif text-[17px] text-cream-text font-medium leading-tight">
-              Strategic Planning for Growth & Network Leadership
-            </h3>
-            <p className="text-xs text-[#AEC0BB] mt-1">Annual symposium featuring keynotes, panel discussions, and collaborative breakout tracks.</p>
-          </div>
-        </div>
-
-        {/* Placeholder slot */}
-        <CmsGridSlot label="Photo Slot — add real session photo" className="min-h-[220px]" />
+        {Array.from({ length: 3 }).map((_, i) => (
+          <CmsGridSlot key={i} label="Photo Slot — add real session photo" className="min-h-[220px]" />
+        ))}
       </div>
-      
+
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
         {Array.from({ length: 4 }).map((_, i) => (
           <CmsGridSlot key={i} label="Photo slot" className="min-h-[120px]" />

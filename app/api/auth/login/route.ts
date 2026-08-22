@@ -2,8 +2,17 @@ import { NextRequest, NextResponse } from "next/server";
 import { findUserByEmail } from "@/lib/models";
 import { verifyPassword } from "@/lib/password";
 import { createSessionToken, SESSION_COOKIE, SESSION_TTL_SECONDS } from "@/lib/auth";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 export async function POST(req: NextRequest) {
+  // Tighter window than public forms: this endpoint is a brute-force target.
+  if (!checkRateLimit(req, "login", { limit: 8, windowMs: 5 * 60 * 1000 })) {
+    return NextResponse.json(
+      { error: "Too many login attempts. Please wait a few minutes and try again." },
+      { status: 429 }
+    );
+  }
+
   let body: { email?: string; password?: string };
   try {
     body = await req.json();

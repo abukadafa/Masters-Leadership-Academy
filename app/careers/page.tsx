@@ -5,6 +5,7 @@ import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import EmptyState from "@/components/EmptyState";
 import SectionTabs from "@/components/SectionTabs";
+import Honeypot from "@/components/Honeypot";
 
 function VacanciesTab() {
   return (
@@ -36,6 +37,7 @@ function FacilitatorForm() {
     linkedin: "",
     availability: "",
   });
+  const [website, setWebsite] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,7 +47,7 @@ function FacilitatorForm() {
       const res = await fetch("/api/careers/facilitator", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, website }),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -69,6 +71,7 @@ function FacilitatorForm() {
         (Submissions are handled locally in this preview — connect this form to the enquiry system before launch.)
       </p>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <Honeypot value={website} onChange={setWebsite} />
         <div>
           <label className="block text-xs font-mono uppercase text-slate mb-2">Full Name</label>
           <input

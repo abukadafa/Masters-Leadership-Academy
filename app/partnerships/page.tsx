@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import PageHero from "@/components/PageHero";
+import Honeypot from "@/components/Honeypot";
 
 const partnerCategories = [
   "Corporate Partners",
@@ -25,6 +26,7 @@ function ApplicationForm({ kind }: { kind: "partner" | "sponsor" }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [form, setForm] = useState({ organisation: "", contactName: "", email: "", category: "", message: "" });
+  const [website, setWebsite] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,7 +36,7 @@ function ApplicationForm({ kind }: { kind: "partner" | "sponsor" }) {
       const res = await fetch(`/api/partnerships/${kind}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, website }),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -52,6 +54,7 @@ function ApplicationForm({ kind }: { kind: "partner" | "sponsor" }) {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <Honeypot value={website} onChange={setWebsite} />
       <div>
         <label className="block text-xs font-mono uppercase text-slate mb-2">Organisation Name</label>
         <input

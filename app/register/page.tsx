@@ -4,12 +4,14 @@ import React, { useState } from "react";
 import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import NotificationOptIn from "@/components/NotificationOptIn";
+import Honeypot from "@/components/Honeypot";
 
 export default function RegisterPage() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [form, setForm] = useState({ name: "", email: "", phone: "", interest: "" });
+  const [website, setWebsite] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -19,7 +21,7 @@ export default function RegisterPage() {
       const res = await fetch("/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, website }),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -48,6 +50,7 @@ export default function RegisterPage() {
           <div className="bg-paper-2 border border-rule-paper/60 p-8 rounded-[3px]">
             <h2 className="text-[20px] font-serif text-ink-text mb-6">Join the Interest List</h2>
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+              <Honeypot value={website} onChange={setWebsite} />
               <div>
                 <label className="block text-xs font-mono uppercase text-slate mb-2">Full Name</label>
                 <input
