@@ -5,6 +5,7 @@ import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import NotificationOptIn from "@/components/NotificationOptIn";
 import Honeypot from "@/components/Honeypot";
+import PaymentForm from "@/components/PaymentForm";
 
 export default function RegisterPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -121,10 +122,25 @@ export default function RegisterPage() {
               <NotificationOptIn />
             </div>
             <p className="text-[13px] text-muted-paper leading-relaxed">
-              This flow is architected but not yet connected to a live programme, payment provider, or database.
-              See the <Link href="/programmes" className="text-copper underline">Programme Catalogue</Link> for
+              No programme currently has confirmed dates or a published catalogue fee. See the{" "}
+              <Link href="/programmes" className="text-copper underline">Programme Catalogue</Link> for
               current status.
             </p>
+          </div>
+        </div>
+
+        <div className="border-t border-rule-paper pt-12 mt-16">
+          <h2 className="text-[24px] font-serif text-ink-text mb-3">Already Have a Confirmed Fee?</h2>
+          <p className="text-muted-paper mb-8 max-w-[64ch]">
+            If a facilitator or the Academy has already confirmed your programme and fee, pay it securely
+            below via Paystack or Flutterwave.
+          </p>
+          <div className="bg-paper-2 border border-rule-paper/60 p-8 rounded-[3px] max-w-[520px]">
+            <PaymentForm
+              purpose="registration"
+              noteLabel="Programme / Cohort Name"
+              noteRequired
+            />
           </div>
         </div>
       </div>

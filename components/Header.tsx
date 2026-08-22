@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import type { Dictionary } from "@/lib/i18n/dictionaries/types";
@@ -25,15 +26,7 @@ export default function Header({ dict, locale }: { dict: Dictionary; locale: Loc
       <nav className="flex items-center justify-between px-8 py-[18px] max-w-[1200px] mx-auto relative">
         <Link href="/" className="brand flex items-center gap-3 text-cream-text">
           <div className="w-8 h-8 relative shrink-0">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="150 50 200 150" className="w-full h-full">
-              <g transform="translate(0, -10)">
-                <path d="M 180,180 L 180,100 L 200,100 L 200,180 Z" fill="#D4AF37"/>
-                <path d="M 200,100 L 250,150 L 235,165 L 200,130 Z" fill="#D4AF37"/>
-                <path d="M 250,75 L 275,100 L 250,125 L 225,100 Z" fill="#D4AF37"/>
-                <path d="M 300,100 L 250,150 L 265,165 L 300,130 Z" fill="#D4AF37"/>
-                <path d="M 300,180 L 300,100 L 320,100 L 320,180 Z" fill="#D4AF37"/>
-              </g>
-            </svg>
+            <Image src="/logo.jpg" alt="Masters Leadership Academy logo" fill sizes="32px" className="object-contain" />
           </div>
           <div className="flex flex-col">
             <span className="brand-name font-serif text-[16px] font-semibold tracking-[0.02em] uppercase leading-tight">

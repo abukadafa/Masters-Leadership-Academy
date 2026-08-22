@@ -5,6 +5,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import ChatWidget from "@/components/ChatWidget";
 import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
 import OrganizationJsonLd from "@/components/OrganizationJsonLd";
 import { LOCALE_COOKIE, DEFAULT_LOCALE, getLocaleInfo, type Locale } from "@/lib/i18n/config";
@@ -107,6 +108,7 @@ export default async function RootLayout({
         </main>
         <Footer dict={dict} locale={locale} />
         <WhatsAppButton />
+        <ChatWidget />
         <ServiceWorkerRegister />
       </body>
     </html>

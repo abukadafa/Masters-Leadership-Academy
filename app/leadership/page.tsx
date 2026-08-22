@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import PageHero from "@/components/PageHero";
 
 const roles = [
@@ -24,6 +25,29 @@ export default function LeadershipPage() {
           title="Leadership & Faculty"
           description="The registration certificate does not declare director or facilitator names. This directory is ready for authentic profiles as they are supplied."
         />
+
+        <div className="border-t border-rule-paper pt-12 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-[220px_1fr] gap-8 items-start bg-paper-2 border border-rule-paper/60 p-8 rounded-[3px]">
+            <div className="w-[180px] h-[180px] md:w-[220px] md:h-[220px] rounded-[4px] overflow-hidden border border-rule-paper bg-paper shrink-0 relative">
+              <Image
+                src="/chairman.jpg"
+                alt="Dr. John Doe, Chairman & Founder, Masters Leadership Academy"
+                fill
+                sizes="220px"
+                className="object-cover"
+              />
+            </div>
+            <div>
+              <div className="text-[11px] text-slate tracking-[0.1em] uppercase mb-2">Chairman &amp; Founder</div>
+              <div className="font-serif text-[24px] text-ink-text font-semibold mb-3">Dr. John Doe</div>
+              <p className="text-[14px] text-muted-paper leading-relaxed max-w-[64ch]">
+                Dr. John Doe founded Masters Leadership Academy in 2015 with a mandate to develop leaders
+                across the public and private sectors through practical, rigorous seminars, conferences and
+                technical services. [CMS Placeholder — add full biography, credentials and track record.]
+              </p>
+            </div>
+          </div>
+        </div>
 
         <div className="border-t border-rule-paper pt-12">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">

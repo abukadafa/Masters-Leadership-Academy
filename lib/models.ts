@@ -201,3 +201,60 @@ export const impactStats = {
     return info.changes > 0;
   },
 };
+
+export type PaymentProvider = "paystack" | "flutterwave";
+export type PaymentPurpose = "donation" | "registration";
+export type PaymentStatus = "pending" | "success" | "failed";
+
+export interface PaymentRow {
+  id: number;
+  reference: string;
+  provider: PaymentProvider;
+  purpose: PaymentPurpose;
+  name: string;
+  email: string;
+  amount: number;
+  currency: string;
+  status: PaymentStatus;
+  metadata: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+/** Payment intents/records for donations and programme registration fees, created before
+ * redirecting to Paystack/Flutterwave and updated once the provider confirms the outcome. */
+export const payments = {
+  create(input: {
+    reference: string;
+    provider: PaymentProvider;
+    purpose: PaymentPurpose;
+    name: string;
+    email: string;
+    amount: number;
+    currency: string;
+    metadata?: string | null;
+  }): PaymentRow {
+    db.prepare(
+      `INSERT INTO payments (reference, provider, purpose, name, email, amount, currency, metadata)
+       VALUES (@reference, @provider, @purpose, @name, @email, @amount, @currency, @metadata)`
+    ).run({ ...input, metadata: input.metadata ?? null });
+    return this.findByReference(input.reference)!;
+  },
+  findByReference(reference: string): PaymentRow | undefined {
+    return db.prepare("SELECT * FROM payments WHERE reference = ?").get(reference) as
+      | PaymentRow
+      | undefined;
+  },
+  updateStatus(reference: string, status: PaymentStatus): void {
+    db.prepare(
+      "UPDATE payments SET status = ?, updated_at = datetime('now') WHERE reference = ?"
+    ).run(status, reference);
+  },
+  list(): PaymentRow[] {
+    return db.prepare("SELECT * FROM payments ORDER BY created_at DESC").all() as unknown as PaymentRow[];
+  },
+  count(): number {
+    const row = db.prepare("SELECT COUNT(*) as c FROM payments").get() as { c: number };
+    return row.c;
+  },
+};

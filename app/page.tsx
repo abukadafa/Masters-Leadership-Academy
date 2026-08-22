@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import VideoPlayer from "@/components/VideoPlayer";
 import EmptyState from "@/components/EmptyState";
 import CMSPlaceholder from "@/components/CMSPlaceholder";
@@ -48,14 +49,17 @@ export default function Home() {
     <div>
       {/* HERO SECTION */}
       <section className="hero bg-ink color-cream-text relative overflow-hidden pt-[100px] pb-0 text-cream-text">
-        {/* Background Motion Video (looping, muted YouTube embed) */}
-        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden opacity-30">
-          <iframe
-            src="https://www.youtube.com/embed/WXd_hJhtRyw?autoplay=1&mute=1&loop=1&playlist=WXd_hJhtRyw&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&playsinline=1&start=51"
-            className="w-[100vw] h-[56.25vw] min-h-[100vh] min-w-[177.77vh] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-0"
-            allow="autoplay; encrypted-media"
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+          <Image
+            src="/hero-background.jpg"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover opacity-40"
           />
-          {/* Layer to blend the video into the theme color */}
+          {/* Layer to blend the image into the theme color */}
           <div className="absolute inset-0 bg-gradient-to-b from-ink/80 via-ink/90 to-ink-2/95" />
         </div>
         <div className="absolute inset-0 bg-[repeating-linear-gradient(115deg,_rgba(224,164,104,0.05)_0_2px,_transparent_2px_64px),_repeating-linear-gradient(25deg,_rgba(224,164,104,0.04)_0_1px,_transparent_1px_90px)] pointer-events-none z-10" />
@@ -159,6 +163,35 @@ export default function Home() {
       </section>
 
       <ImpactStats />
+
+      {/* CHAIRMAN'S MESSAGE */}
+      <section className="bg-paper py-[80px]">
+        <div className="max-w-[1200px] mx-auto px-8">
+          <div className="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-10 items-start">
+            <div className="w-[200px] h-[200px] md:w-[240px] md:h-[240px] rounded-[4px] overflow-hidden border border-rule-paper bg-paper-2 shrink-0 relative">
+              <Image
+                src="/chairman.jpg"
+                alt="Dr. John Doe, Chairman & Founder, Masters Leadership Academy"
+                fill
+                sizes="240px"
+                className="object-cover"
+              />
+            </div>
+            <div>
+              <span className="eyebrow text-slate mb-[14px] block">A Message From Our Chairman</span>
+              <p className="text-[19px] md:text-[22px] font-serif italic leading-[1.5] text-ink-text mb-[22px] max-w-[62ch]">
+                &ldquo;Our mission has always been to develop leaders who can hold up under pressure, think
+                clearly, and serve their organisations and communities with integrity. Every seminar,
+                conference and technical engagement we run is built toward that end.&rdquo;
+              </p>
+              <div className="font-serif text-[17px] text-ink-text font-semibold">Dr. John Doe</div>
+              <div className="text-[13px] text-muted-paper uppercase tracking-[0.08em] mt-1">
+                Chairman &amp; Founder, Masters Leadership Academy
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* LEADERSHIP / OUR TEAM */}
       <section className="bg-paper-2 py-[70px]">

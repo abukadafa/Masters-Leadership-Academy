@@ -166,3 +166,16 @@ h1, h2, h3, .serif {
     right: calc(1.5rem + env(safe-area-inset-right, 0px));
   }
 }
+
+/* Chat assistant sits directly above the WhatsApp button so the two floating actions
+   stack instead of overlapping. */
+.chat-fab {
+  bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px));
+  right: calc(1rem + env(safe-area-inset-right, 0px));
+}
+@media (min-width: 640px) {
+  .chat-fab {
+    bottom: calc(6rem + env(safe-area-inset-bottom, 0px));
+    right: calc(1.5rem + env(safe-area-inset-right, 0px));
+  }
+}

@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import type { Dictionary } from "@/lib/i18n/dictionaries/types";
 import type { Locale } from "@/lib/i18n/config";
 import SocialLinks from "@/components/SocialLinks";
@@ -12,15 +13,7 @@ export default function Footer({ dict }: { dict: Dictionary; locale: Locale }) {
           <div className="foot-brand lg:col-span-1 flex flex-col gap-4">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 relative shrink-0">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="150 50 200 150" className="w-full h-full">
-                  <g transform="translate(0, -10)">
-                    <path d="M 180,180 L 180,100 L 200,100 L 200,180 Z" fill="#D4AF37"/>
-                    <path d="M 200,100 L 250,150 L 235,165 L 200,130 Z" fill="#D4AF37"/>
-                    <path d="M 250,75 L 275,100 L 250,125 L 225,100 Z" fill="#D4AF37"/>
-                    <path d="M 300,100 L 250,150 L 265,165 L 300,130 Z" fill="#D4AF37"/>
-                    <path d="M 300,180 L 300,100 L 320,100 L 320,180 Z" fill="#D4AF37"/>
-                  </g>
-                </svg>
+                <Image src="/logo.jpg" alt="Masters Leadership Academy logo" fill sizes="32px" className="object-contain" />
               </div>
               <span className="brand-name font-serif text-cream-text text-[16px] font-semibold tracking-[0.02em] uppercase leading-tight">
                 Masters Leadership Academy
@@ -74,6 +67,7 @@ export default function Footer({ dict }: { dict: Dictionary; locale: Locale }) {
               {dict.footer.getInvolved}
             </h5>
             <Link href="/register" className="block text-[13px] mb-[10px] hover:text-cream-text">{dict.footer.registration}</Link>
+            <Link href="/donate" className="block text-[13px] mb-[10px] hover:text-cream-text">Donate</Link>
             <Link href="/verify-certificate" className="block text-[13px] mb-[10px] hover:text-cream-text">{dict.footer.verifyCertificate}</Link>
             <Link href="/faq" className="block text-[13px] mb-[10px] hover:text-cream-text">{dict.footer.faq}</Link>
             <p className="text-[13px] mt-4 leading-[1.6]">

@@ -26,8 +26,8 @@ export const socialLinks: SocialLink[] = [
   },
   {
     name: "Instagram",
-    href: process.env.NEXT_PUBLIC_SOCIAL_INSTAGRAM || "https://www.instagram.com/mastersleadershipacademy",
-    confirmed: Boolean(process.env.NEXT_PUBLIC_SOCIAL_INSTAGRAM),
+    href: process.env.NEXT_PUBLIC_SOCIAL_INSTAGRAM || "https://www.instagram.com/masters_leadership_academy/",
+    confirmed: true,
   },
   {
     name: "LinkedIn",
