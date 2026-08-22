@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "typecheck": "tsc --noEmit",
     "create-admin": "tsx scripts/create-admin.ts",
     "generate-vapid-keys": "tsx scripts/generate-vapid-keys.ts"
   },

@@ -118,11 +118,6 @@ version control once created. Added `!.env.example` exception.
 These are real, but were left alone deliberately rather than fixed speculatively, per the
 "don't add features unless justified" principle:
 
-- **Admin dashboard is read-only.** Admins can view and (via `AdminTable`) scroll each
-  submission list, but cannot change status, add notes, search, filter, or export. This is a
-  legitimate operational gap (a "new" enquiry has no way to become "resolved") but is a
-  larger, deliberate feature addition — better scoped as its own piece of work with the
-  client's input on what statuses/workflow they actually want, rather than guessed at.
 - **No CSRF token system.** Not added, because the existing protection (sameSite=lax cookies +
   JSON `Content-Type` requiring a preflight for true cross-origin POSTs) already covers the
   realistic threat model for this app, and adding token plumbing to 7 forms for marginal
@@ -135,22 +130,23 @@ These are real, but were left alone deliberately rather than fixed speculatively
 ## 6. Verification performed
 
 ```
-npm install     PASS
-tsc --noEmit    PASS (0 errors)
-npm run lint    PASS (0 errors, 0 warnings)
-npm run build   NOT TESTED — this sandbox cannot reach fonts.googleapis.com (next/font
-                fetches Fraunces/Inter/IBM Plex Mono at build time and the network
-                allowlist here doesn't include Google Fonts). This is an environment
-                limitation, not a code defect — the same build should succeed in any
-                environment with normal internet access. Recommend running `npm run build`
-                once in the real deployment/CI environment before shipping.
+npm install       PASS
+tsc --noEmit      PASS (0 errors)
+npm run lint      PASS (0 errors, 0 warnings)
+npm run build     NOT TESTED — this sandbox cannot reach fonts.googleapis.com (next/font
+                  fetches Fraunces/Inter/IBM Plex Mono at build time and the network
+                  allowlist here doesn't include Google Fonts). This is an environment
+                  limitation, not a code defect — the same build should succeed in any
+                  environment with normal internet access. Recommend running `npm run build`
+                  once in the real deployment/CI environment before shipping.
+GET /api/health   PASS — verified live against `npm run dev` (returns {"status":"ok",
+                  "database":"ok"})
 ```
 
 No test suite exists to run (`npm test` is not defined). See §7.
 
 ## 7. Remaining work for a human / future agent
 
-- Decide on and implement admin status-management workflow (§5).
 - Run `npm run build` in an environment with access to fonts.googleapis.com to get a real
   production-build signal (this pass could only verify typecheck + lint).
 - Set up a test runner (Vitest or Jest) if automated testing is wanted — none exists yet.
@@ -159,9 +155,16 @@ No test suite exists to run (`npm test` is not defined). See §7.
   correctly show empty states, per the content-integrity rule in §1.
 - Decide on Web Push sending (needs the `web-push` package + a send job) or remove the
   half-built subscription collection if it's not going to be finished.
-- If deploying to serverless/ephemeral hosting (Vercel etc.), either mount `DATABASE_DIR` on a
-  persistent volume or swap `lib/db.ts` for hosted Postgres — the query surface in
-  `lib/models.ts` is intentionally small and easy to port (already documented in `lib/db.ts`).
+- **Database persistence on Vercel is still unresolved.** `lib/db.ts` uses `node:sqlite`
+  writing to a local file — this does not persist reliably on Vercel's serverless functions.
+  Either mount `DATABASE_DIR` on a persistent volume (not available on Vercel) or migrate to
+  a hosted database (Turso is the smallest change, being SQLite-wire-compatible; Postgres via
+  Neon/Vercel Postgres is the alternative). The query surface in `lib/models.ts` is
+  intentionally small and easy to port. **Not done — needs the client's hosting decision and
+  credentials before it can be implemented.**
+- Real impact-counter values (Students Trained, Seminars Delivered, Workshops Delivered,
+  Conferences Hosted, and any others added) are seeded at 0 and need real numbers entered via
+  `/admin/impact` — see §9.
 - Generate a real `SESSION_SECRET` and set it in production — the app throws on startup in
   production if it's missing, which is correct behavior, not a bug.
 
@@ -246,4 +249,47 @@ response headers) and explicit `reactStrictMode: true`.
   current approach works fine on any host with normal internet access (e.g. Vercel).
 - Everything listed in §5 and §7 above is still open — this pass didn't touch the admin
   workflow, CSRF, push-sending, or test-runner gaps.
+
+## 9. Admin dashboard functionality (2026-08-22, third pass)
+
+Closes the "admin dashboard is read-only" gap flagged in the previous pass of this document.
+
+- **Status management.** Every submission table (`enquiries`, `corporate_training_requests`,
+  `partner_applications`, `sponsor_applications`, `facilitator_applications`,
+  `registration_interests`) gained an `updateStatus()` model method, exposed through a single
+  whitelisted `PATCH /api/admin/status` route (table name is matched against a fixed map, never
+  interpolated from the request) and enforced against the same `SECTION_ACCESS` permission
+  table used elsewhere. A `StatusSelect` client component wires this into all five admin list
+  pages so status (New / In Review / Contacted / Closed) can be changed in place.
+- **Impact counters.** New `impact_stats` table (label, value, sort order), seeded with four
+  starter counters at value 0 (Students Trained, Seminars Delivered, Workshops Delivered,
+  Conferences Hosted) so the admin has something to edit rather than an empty screen. Full
+  CRUD via `/admin/impact` (`ImpactStatsManager`), a public read-only `GET /api/impact-stats`
+  endpoint, and a homepage section (`components/ImpactStats.tsx`, "The Academy in numbers")
+  that renders the live values — or a CMS-placeholder-style empty state if every counter is
+  still at 0, consistent with the content-integrity rule in §1 (no fabricated statistics are
+  ever shown).
+- Search/filter/export/notes/audit-log admin capabilities (also listed under §14 of the
+  original remediation brief) were **not** added in this pass — status management was the
+  specific, requested gap; the rest remain open, justified future work rather than assumed
+  requirements.
+- Verified functionally (not just type-checked): direct model calls against a scratch database
+  confirmed seeding, create/update/delete on `impact_stats`, and `updateStatus()` on a
+  submission row all work as intended.
+
+## 10. Health check and script hygiene (2026-08-22, third pass)
+
+- Added `GET /api/health` (§39 of the remediation brief) — reports `{status, database}` by
+  running a trivial `SELECT 1`, no internals or credentials exposed. Verified live against
+  `npm run dev`.
+- Added a `typecheck` script (`tsc --noEmit`) to `package.json` — the remediation brief's own
+  build-validation step (§31) expects `npm run typecheck` to exist; it previously didn't.
+
+## 11. Outstanding blocker for Vercel deployment
+
+The client asked about hosting the admin on Vercel. This is **not yet resolved** and is the
+single biggest open item: `lib/db.ts` writes to a local SQLite file, which does not persist
+reliably on Vercel's serverless/ephemeral filesystem. See §7 for the two viable paths (Turso,
+or hosted Postgres) — neither has been implemented, since both require the client to create an
+account and supply credentials first.
 
