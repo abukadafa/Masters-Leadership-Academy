@@ -30,6 +30,7 @@ const ar: Dictionary = {
     termsOfUse: "شروط الاستخدام",
     refundPolicy: "سياسة الاسترداد",
     cookiePolicy: "سياسة ملفات تعريف الارتباط",
+    followUs: "تابعنا",
   },
   language: {
     switchLanguage: "اللغة",

@@ -30,6 +30,7 @@ const en: Dictionary = {
     termsOfUse: "Terms of Use",
     refundPolicy: "Refund Policy",
     cookiePolicy: "Cookie Policy",
+    followUs: "Follow Us",
   },
   language: {
     switchLanguage: "Language",

@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import type { Dictionary } from "@/lib/i18n/dictionaries/types";
 import type { Locale } from "@/lib/i18n/config";
+import SocialLinks from "@/components/SocialLinks";
 
 export default function Footer({ dict }: { dict: Dictionary; locale: Locale }) {
   return (
@@ -28,6 +29,12 @@ export default function Footer({ dict }: { dict: Dictionary; locale: Locale }) {
             <p className="text-[13px] mt-2 max-w-[32ch] leading-[1.6]">
               {dict.footer.tagline}
             </p>
+            <div className="mt-2">
+              <h5 className="text-[12px] text-copper-light uppercase tracking-[0.1em] font-semibold mb-[12px]">
+                {dict.footer.followUs}
+              </h5>
+              <SocialLinks label={dict.footer.followUs} />
+            </div>
           </div>
 
           <div className="foot-col">

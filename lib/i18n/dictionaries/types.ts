@@ -27,6 +27,7 @@ export interface Dictionary {
     termsOfUse: string;
     refundPolicy: string;
     cookiePolicy: string;
+    followUs: string;
   };
   language: {
     switchLanguage: string;
