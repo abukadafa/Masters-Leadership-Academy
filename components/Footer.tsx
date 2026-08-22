@@ -12,8 +12,8 @@ export default function Footer({ dict }: { dict: Dictionary; locale: Locale }) {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-10 pb-[50px] border-b border-rule">
           <div className="foot-brand lg:col-span-1 flex flex-col gap-4">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 relative shrink-0">
-                <Image src="/logo.jpg" alt="Masters Leadership Academy logo" fill sizes="32px" className="object-contain" />
+              <div className="w-9 h-9 relative shrink-0 bg-white rounded-[6px] p-1 shadow-sm">
+                <Image src="/logo.jpg" alt="Masters Leadership Academy logo" fill sizes="36px" className="object-contain rounded-[4px]" />
               </div>
               <span className="brand-name font-serif text-cream-text text-[16px] font-semibold tracking-[0.02em] uppercase leading-tight">
                 Masters Leadership Academy

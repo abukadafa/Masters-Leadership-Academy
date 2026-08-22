@@ -25,8 +25,8 @@ export default function Header({ dict, locale }: { dict: Dictionary; locale: Loc
     <header className="sticky top-0 z-50 bg-ink/94 backdrop-blur-md border-b border-rule">
       <nav className="flex items-center justify-between px-8 py-[18px] max-w-[1200px] mx-auto relative">
         <Link href="/" className="brand flex items-center gap-3 text-cream-text">
-          <div className="w-8 h-8 relative shrink-0">
-            <Image src="/logo.jpg" alt="Masters Leadership Academy logo" fill sizes="32px" className="object-contain" />
+          <div className="w-9 h-9 relative shrink-0 bg-white rounded-[6px] p-1 shadow-sm">
+            <Image src="/logo.jpg" alt="Masters Leadership Academy logo" fill sizes="36px" className="object-contain rounded-[4px]" />
           </div>
           <div className="flex flex-col">
             <span className="brand-name font-serif text-[16px] font-semibold tracking-[0.02em] uppercase leading-tight">
