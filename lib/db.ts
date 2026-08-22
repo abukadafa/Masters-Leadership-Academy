@@ -104,7 +104,33 @@ function init(): DatabaseSync {
       auth TEXT NOT NULL,
       created_at TEXT NOT NULL DEFAULT (datetime('now'))
     );
+
+    CREATE TABLE IF NOT EXISTS impact_stats (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      label TEXT NOT NULL,
+      value INTEGER NOT NULL DEFAULT 0,
+      sort_order INTEGER NOT NULL DEFAULT 0,
+      updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+    );
   `);
+
+  // Seed a starter set of impact counters on first run only, so the admin has something to
+  // edit rather than an empty table. Safe to run every boot: only fires while the table is empty.
+  const { c: impactStatsCount } = db.prepare("SELECT COUNT(*) as c FROM impact_stats").get() as {
+    c: number;
+  };
+  if (impactStatsCount === 0) {
+    const seed = db.prepare(
+      "INSERT INTO impact_stats (label, value, sort_order) VALUES (@label, @value, @sort_order)"
+    );
+    [
+      { label: "Students Trained", value: 0, sort_order: 0 },
+      { label: "Seminars Delivered", value: 0, sort_order: 1 },
+      { label: "Workshops Delivered", value: 0, sort_order: 2 },
+      { label: "Conferences Hosted", value: 0, sort_order: 3 },
+    ].forEach((row) => seed.run(row));
+  }
+
   return db;
 }
 

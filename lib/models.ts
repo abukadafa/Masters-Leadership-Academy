@@ -31,7 +31,12 @@ export function countUsers(): number {
   return row.c;
 }
 
-/** Small factory for the repeated insert/list/count shape each submission table needs. */
+/** Statuses every submission table shares — kept in one place so the admin UI and the API
+ * route that writes them agree on the same allowed set. */
+export const SUBMISSION_STATUSES = ["new", "in_review", "contacted", "closed"] as const;
+export type SubmissionStatus = (typeof SUBMISSION_STATUSES)[number];
+
+/** Small factory for the repeated insert/list/count/status shape each submission table needs. */
 function makeTable<T>(table: string) {
   return {
     insert(row: Record<string, unknown>): number {
@@ -47,6 +52,10 @@ function makeTable<T>(table: string) {
     count(): number {
       const row = db.prepare(`SELECT COUNT(*) as c FROM ${table}`).get() as { c: number };
       return row.c;
+    },
+    updateStatus(id: number, status: SubmissionStatus): boolean {
+      const info = db.prepare(`UPDATE ${table} SET status = ? WHERE id = ?`).run(status, id);
+      return info.changes > 0;
     },
   };
 }
@@ -155,5 +164,40 @@ export const pushSubscriptions = {
   count(): number {
     const row = db.prepare("SELECT COUNT(*) as c FROM push_subscriptions").get() as { c: number };
     return row.c;
+  },
+};
+
+export interface ImpactStat {
+  id: number;
+  label: string;
+  value: number;
+  sort_order: number;
+  updated_at: string;
+}
+
+/** Editable "Academy in numbers" counters (students trained, seminars delivered, etc.) shown
+ * publicly on the homepage and managed from /admin/impact. */
+export const impactStats = {
+  list(): ImpactStat[] {
+    return db.prepare("SELECT * FROM impact_stats ORDER BY sort_order ASC, id ASC").all() as unknown as ImpactStat[];
+  },
+  create(input: { label: string; value: number }): ImpactStat {
+    const { max } = db.prepare("SELECT COALESCE(MAX(sort_order), -1) as max FROM impact_stats").get() as {
+      max: number;
+    };
+    const info = db
+      .prepare("INSERT INTO impact_stats (label, value, sort_order) VALUES (@label, @value, @sort_order)")
+      .run({ label: input.label, value: input.value, sort_order: max + 1 });
+    return db.prepare("SELECT * FROM impact_stats WHERE id = ?").get(info.lastInsertRowid) as unknown as ImpactStat;
+  },
+  update(id: number, input: { label: string; value: number }): boolean {
+    const info = db
+      .prepare("UPDATE impact_stats SET label = ?, value = ?, updated_at = datetime('now') WHERE id = ?")
+      .run(input.label, input.value, id);
+    return info.changes > 0;
+  },
+  remove(id: number): boolean {
+    const info = db.prepare("DELETE FROM impact_stats WHERE id = ?").run(id);
+    return info.changes > 0;
   },
 };

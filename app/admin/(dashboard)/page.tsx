@@ -8,6 +8,7 @@ import {
   sponsorApplications,
   facilitatorApplications,
   registrationInterests,
+  impactStats,
 } from "@/lib/models";
 import { canAccessSection, type Section } from "@/lib/permissions";
 
@@ -46,6 +47,12 @@ export default async function AdminDashboardPage() {
       count: registrationInterests.count(),
       section: "registrations",
       href: "/admin/registrations",
+    },
+    {
+      label: "Impact Counters",
+      count: impactStats.list().length,
+      section: "impact",
+      href: "/admin/impact",
     },
   ];
 

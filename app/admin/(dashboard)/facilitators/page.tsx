@@ -3,6 +3,7 @@ import { getCurrentUser } from "@/lib/session";
 import { facilitatorApplications } from "@/lib/models";
 import { canAccessSection } from "@/lib/permissions";
 import AdminTable from "@/components/admin/AdminTable";
+import StatusSelect from "@/components/admin/StatusSelect";
 
 export default async function FacilitatorsAdminPage() {
   const user = await getCurrentUser();
@@ -37,7 +38,11 @@ export default async function FacilitatorsAdminPage() {
                 "—"
               ),
           },
-          { key: "status", label: "Status" },
+          {
+            key: "status",
+            label: "Status",
+            render: (r) => <StatusSelect table="facilitators" id={r.id} status={r.status} />,
+          },
         ]}
       />
     </div>

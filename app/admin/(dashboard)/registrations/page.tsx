@@ -3,6 +3,7 @@ import { getCurrentUser } from "@/lib/session";
 import { registrationInterests } from "@/lib/models";
 import { canAccessSection } from "@/lib/permissions";
 import AdminTable from "@/components/admin/AdminTable";
+import StatusSelect from "@/components/admin/StatusSelect";
 
 export default async function RegistrationsAdminPage() {
   const user = await getCurrentUser();
@@ -24,7 +25,11 @@ export default async function RegistrationsAdminPage() {
           { key: "email", label: "Email" },
           { key: "phone", label: "Phone" },
           { key: "interest", label: "Area of Interest" },
-          { key: "status", label: "Status" },
+          {
+            key: "status",
+            label: "Status",
+            render: (r) => <StatusSelect table="registrations" id={r.id} status={r.status} />,
+          },
         ]}
       />
     </div>

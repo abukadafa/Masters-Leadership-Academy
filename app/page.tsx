@@ -6,6 +6,7 @@ import VideoPlayer from "@/components/VideoPlayer";
 import EmptyState from "@/components/EmptyState";
 import CMSPlaceholder from "@/components/CMSPlaceholder";
 import CmsGridSlot from "@/components/CmsGridSlot";
+import ImpactStats from "@/components/ImpactStats";
 
 export default function Home() {
   const [activeTags, setActiveTags] = useState<string[]>([]);
@@ -156,6 +157,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <ImpactStats />
 
       {/* LEADERSHIP / OUR TEAM */}
       <section className="bg-paper-2 py-[70px]">

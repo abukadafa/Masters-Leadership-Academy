@@ -16,6 +16,7 @@ export const SECTIONS = [
   "partnerships",
   "facilitators",
   "registrations",
+  "impact",
 ] as const;
 
 export type Section = (typeof SECTIONS)[number];
@@ -27,6 +28,7 @@ export const SECTION_ACCESS: Record<Section, Role[]> = {
   partnerships: ["SUPER_ADMIN", "PROGRAMME_MANAGER", "FINANCE_OFFICER"],
   facilitators: ["SUPER_ADMIN", "PROGRAMME_MANAGER"],
   registrations: ["SUPER_ADMIN", "PROGRAMME_MANAGER", "EVENT_MANAGER"],
+  impact: ["SUPER_ADMIN", "CONTENT_MANAGER"],
 };
 
 export function canAccessSection(role: Role, section: Section): boolean {

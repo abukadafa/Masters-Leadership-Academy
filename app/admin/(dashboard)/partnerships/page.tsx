@@ -3,6 +3,7 @@ import { getCurrentUser } from "@/lib/session";
 import { partnerApplications, sponsorApplications } from "@/lib/models";
 import { canAccessSection } from "@/lib/permissions";
 import AdminTable from "@/components/admin/AdminTable";
+import StatusSelect from "@/components/admin/StatusSelect";
 
 export default async function PartnershipsAdminPage() {
   const user = await getCurrentUser();
@@ -31,7 +32,11 @@ export default async function PartnershipsAdminPage() {
               label: "Message",
               render: (r) => <span className="line-clamp-3 max-w-[32ch] block">{r.message}</span>,
             },
-            { key: "status", label: "Status" },
+            {
+              key: "status",
+              label: "Status",
+              render: (r) => <StatusSelect table="partner-applications" id={r.id} status={r.status} />,
+            },
           ]}
         />
       </div>
@@ -52,7 +57,11 @@ export default async function PartnershipsAdminPage() {
               label: "Message",
               render: (r) => <span className="line-clamp-3 max-w-[32ch] block">{r.message}</span>,
             },
-            { key: "status", label: "Status" },
+            {
+              key: "status",
+              label: "Status",
+              render: (r) => <StatusSelect table="sponsor-applications" id={r.id} status={r.status} />,
+            },
           ]}
         />
       </div>

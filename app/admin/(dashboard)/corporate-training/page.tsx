@@ -3,6 +3,7 @@ import { getCurrentUser } from "@/lib/session";
 import { corporateTrainingRequests } from "@/lib/models";
 import { canAccessSection } from "@/lib/permissions";
 import AdminTable from "@/components/admin/AdminTable";
+import StatusSelect from "@/components/admin/StatusSelect";
 
 export default async function CorporateTrainingAdminPage() {
   const user = await getCurrentUser();
@@ -30,7 +31,11 @@ export default async function CorporateTrainingAdminPage() {
             label: "Details",
             render: (r) => <span className="line-clamp-3 max-w-[36ch] block">{r.details}</span>,
           },
-          { key: "status", label: "Status" },
+          {
+            key: "status",
+            label: "Status",
+            render: (r) => <StatusSelect table="corporate-training" id={r.id} status={r.status} />,
+          },
         ]}
       />
     </div>
