@@ -5,6 +5,24 @@ import PageHero from "@/components/PageHero";
 import SectionTabs from "@/components/SectionTabs";
 
 function VideoTab() {
+  const reels = [
+    {
+      id: "2698414743821235",
+      title: "Academy Seminar Highlight — Executive Leadership",
+      url: "https://www.facebook.com/reel/2698414743821235/",
+    },
+    {
+      id: "2692216317774411",
+      title: "Symposium Session — Strategy & Vision",
+      url: "https://www.facebook.com/reel/2692216317774411/",
+    },
+    {
+      id: "2686824098313633",
+      title: "Leadership Interactive Group Discussion",
+      url: "https://www.facebook.com/reel/2686824098313633/",
+    },
+  ];
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-8">
       <div>
@@ -13,9 +31,34 @@ function VideoTab() {
       </div>
       <div>
         <h2 className="text-[22px] font-serif text-ink-text mb-4">More Footage</h2>
-        <div className="flex flex-col gap-6">
-          <CmsGridSlot label="No additional Academy video has been uploaded yet." className="min-h-[180px]" />
-          <CmsGridSlot label="No conference session recording has been supplied yet." className="min-h-[180px]" />
+        <div className="flex flex-col gap-4">
+          {reels.map((reel, index) => (
+            <a
+              key={reel.id}
+              href={reel.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex gap-4 p-3 bg-paper-2 border border-rule-paper/60 hover:border-copper rounded-[3px] group transition-all text-left"
+            >
+              <div className="w-16 aspect-[9/16] relative bg-black shrink-0 overflow-hidden rounded-[2px]">
+                <img
+                  src="/facebook_video_thumb.jpg"
+                  alt={reel.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute inset-0 flex items-center justify-center bg-black/25 group-hover:bg-black/10 transition-colors">
+                  <span className="w-6 h-6 rounded-full bg-copper/90 text-white flex items-center justify-center text-[10px]">▶</span>
+                </div>
+              </div>
+              <div className="flex flex-col justify-center">
+                <span className="font-mono text-[9px] text-copper uppercase tracking-wider mb-1">Facebook Reel 0{index + 1}</span>
+                <h4 className="font-serif text-[14px] text-ink-text font-medium leading-tight group-hover:text-copper transition-colors">
+                  {reel.title}
+                </h4>
+                <p className="text-[12px] text-muted-paper mt-1">Watch reel on Facebook ↗</p>
+              </div>
+            </a>
+          ))}
         </div>
         <div className="mt-6 text-center lg:text-left">
           <a
@@ -69,13 +112,31 @@ function GalleryTab() {
   return (
     <div>
       <p className="text-muted-paper text-[14px] mb-6 max-w-[64ch] leading-relaxed">
-        Seminar and conference photography from Academy sessions will appear here once supplied. No stock
-        or placeholder photography is presented as genuine Academy imagery.
+        Seminar and conference photography from Academy sessions. Featuring real moments captured during our leadership programmes.
       </p>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-        {Array.from({ length: 3 }).map((_, i) => (
-          <CmsGridSlot key={i} label="Photo Slot — add real session photo" className="min-h-[220px]" />
-        ))}
+        {/* Real photo 1 */}
+        <div className="relative bg-paper-2 border border-rule-paper flex flex-col min-h-[220px] rounded-[2px] overflow-hidden group">
+          <img
+            src="/facebook_photo_1.jpg"
+            alt="Masters Leadership Academy Programme"
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-ink/40 opacity-90 group-hover:opacity-75 transition-opacity" />
+          <div className="absolute bottom-4 left-5 right-5 z-10 text-left">
+            <span className="font-mono text-[10px] text-copper-light uppercase tracking-wider block mb-1">
+              Programme Session
+            </span>
+            <h3 className="font-serif text-[17px] text-cream-text font-medium leading-tight">
+              Leadership Decision Protocol Workshop
+            </h3>
+            <p className="text-xs text-[#AEC0BB] mt-1">Interactive leadership training and executive development briefing.</p>
+          </div>
+        </div>
+
+        {/* Placeholders */}
+        <CmsGridSlot label="Photo Slot — add real session photo" className="min-h-[220px]" />
+        <CmsGridSlot label="Photo Slot — add real session photo" className="min-h-[220px]" />
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
