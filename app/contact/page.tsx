@@ -137,6 +137,17 @@ export default function ContactPage() {
                   <span className="text-[11px] font-mono text-muted-paper uppercase block mb-1">Telephone Line</span>
                   <CMSPlaceholder text="Provide a primary office telephone number with international code" />
                 </div>
+                <div>
+                  <span className="text-[11px] font-mono text-muted-paper uppercase block mb-1">Facebook Page</span>
+                  <a
+                    href="https://www.facebook.com/LeadMastersAcademy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[14px] text-ink-text hover:text-copper underline font-medium block"
+                  >
+                    LeadMastersAcademy on Facebook
+                  </a>
+                </div>
               </div>
             </div>
 

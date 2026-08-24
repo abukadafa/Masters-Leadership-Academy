@@ -1,18 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  --ink: #0B192C;
-  --ink-2: #12253B;
+  --ink: #12292B;
+  --ink-2: #1B3638;
   --paper: #F5EFE2;
   --paper-2: #ECE2CD;
-  --copper: #D4AF37;
-  --copper-light: #E6C55F;
-  --slate: #2A4B5C;
-  --slate-light: #4A7287;
+  --copper: #C1783A;
+  --copper-light: #D5945F;
+  --slate: #2F4D50;
+  --slate-light: #517478;
   --cream-text: #F5EFE2;
   --ink-text: #1C1E1B;
   --muted-paper: #6C6856;
-  --rule: #1B324D;
+  --rule: #203F42;
   --rule-paper: #D9CDAE;
 }
 
